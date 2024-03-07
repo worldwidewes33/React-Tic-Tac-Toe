@@ -1,5 +1,20 @@
+import { useState } from "react";
+
+let user = "X";
+
 function Square() {
-  return <button className="square">X</button>;
+  const [value, setValue] = useState("");
+
+  const handleClick = () => {
+    setValue(user);
+    user = user === "X" ? "O" : "X";
+  };
+
+  return (
+    <button className="square" onClick={handleClick}>
+      {value}
+    </button>
+  );
 }
 
 function App() {
