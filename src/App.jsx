@@ -17,7 +17,7 @@ function Square() {
   );
 }
 
-function App() {
+function Board() {
   return (
     <div className="container">
       <Square />
@@ -31,6 +31,10 @@ function App() {
       <Square />
     </div>
   );
+}
+
+function App() {
+  return <Board />;
 }
 
 export default App;
