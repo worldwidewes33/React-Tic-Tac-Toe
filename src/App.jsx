@@ -1,5 +1,21 @@
+function Square() {
+  return <button className="square">X</button>;
+}
+
 function App() {
-  return <h1>Hello World!</h1>;
+  return (
+    <div className="container">
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+      <Square />
+    </div>
+  );
 }
 
 export default App;
