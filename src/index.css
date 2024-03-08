@@ -12,6 +12,10 @@ body {
   padding: 2rem;
 }
 
+.status {
+  margin-bottom: 2rem;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

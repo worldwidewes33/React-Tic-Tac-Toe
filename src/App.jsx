@@ -14,10 +14,7 @@ Square.propTypes = {
   onSquareClick: PropTypes.func,
 };
 
-function Board() {
-  const [squares, setSquares] = useState(new Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
-
+function Board({ squares, xIsNext, onPlay }) {
   const winner = calculateWinner(squares);
 
   let status;
@@ -35,8 +32,7 @@ function Board() {
 
     newSquares[index] = xIsNext ? "X" : "O";
 
-    setXIsNext(!xIsNext);
-    setSquares(newSquares);
+    onPlay(newSquares);
   }
 
   return (
@@ -56,6 +52,12 @@ function Board() {
     </>
   );
 }
+
+Board.propTypes = {
+  squares: PropTypes.array.isRequired,
+  xIsNext: PropTypes.bool.isRequired,
+  onPlay: PropTypes.func.isRequired,
+};
 
 function calculateWinner(squares) {
   const lines = [
@@ -77,8 +79,23 @@ function calculateWinner(squares) {
   return null;
 }
 
+function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [xIsNext, setXIsNext] = useState(true);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    const newHistory = [...history, nextSquares];
+    setHistory(newHistory);
+    setXIsNext(!xIsNext);
+  }
+  return (
+    <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+  );
+}
+
 function App() {
-  return <Board />;
+  return <Game />;
 }
 
 export default App;
