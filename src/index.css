@@ -8,12 +8,15 @@ html {
   font-size: 10px;
 }
 
-.container {
+body {
   padding: 2rem;
+}
+
+.container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  width: 190px;
+  width: 15rem;
 }
 
 .square {
