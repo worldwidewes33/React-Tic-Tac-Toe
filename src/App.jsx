@@ -61,18 +61,22 @@ Board.propTypes = {
 
 function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [xIsNext, setXIsNext] = useState(true);
-  const currentSquares = history[history.length - 1];
+  const [currentMove, setCurrentMove] = useState(0);
+
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
   function handlePlay(nextSquares) {
-    const newHistory = [...history, nextSquares];
+    const newHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setCurrentMove(newHistory.length - 1);
     setHistory(newHistory);
-    setXIsNext(!xIsNext);
   }
 
-  function jumpToMove() {}
+  function jumpToMove(move) {
+    setCurrentMove(move);
+  }
 
-  const moves = history.map((squares, move) => {
+  const moves = history.map((_, move) => {
     let description;
 
     if (move > 0) {
