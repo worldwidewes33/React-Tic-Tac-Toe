@@ -59,6 +59,51 @@ Board.propTypes = {
   onPlay: PropTypes.func.isRequired,
 };
 
+function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [xIsNext, setXIsNext] = useState(true);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    const newHistory = [...history, nextSquares];
+    setHistory(newHistory);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpToMove() {}
+
+  const moves = history.map((squares, move) => {
+    let description;
+
+    if (move > 0) {
+      description = `Got to move #${move}`;
+    } else {
+      description = "Go to start of game";
+    }
+
+    return (
+      <li key={move}>
+        <button onClick={() => jumpToMove(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return <Game />;
+}
+
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -77,25 +122,6 @@ function calculateWinner(squares) {
     }
   }
   return null;
-}
-
-function Game() {
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [xIsNext, setXIsNext] = useState(true);
-  const currentSquares = history[history.length - 1];
-
-  function handlePlay(nextSquares) {
-    const newHistory = [...history, nextSquares];
-    setHistory(newHistory);
-    setXIsNext(!xIsNext);
-  }
-  return (
-    <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-  );
-}
-
-function App() {
-  return <Game />;
 }
 
 export default App;
